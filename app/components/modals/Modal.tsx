@@ -1,15 +1,18 @@
-'use client';
+// Import các thành phần từ thư viện React và thư viện UI headless
+import React, { Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 
-import React, { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { IoClose } from 'react-icons/io5'
+// Import biểu tượng đóng (close) từ thư viện react-icons
+import { IoClose } from 'react-icons/io5';
 
+// Định nghĩa kiểu Props cho component Modal
 interface ModalProps {
   isOpen?: boolean;
   onClose: () => void;
   children: React.ReactNode;
 }
 
+// Component Modal sử dụng thư viện UI headless
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -23,6 +26,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
+          {/* Lớp đen mờ khi modal hiển thị */}
           <div 
             className="
               fixed 
@@ -34,6 +38,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
           />
         </Transition.Child>
 
+        {/* Nội dung chính của modal */}
         <div className="fixed inset-0 z-10 overflow-y-auto">
           <div 
             className="
@@ -55,6 +60,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
+              {/* Panel chứa nội dung modal */}
               <Dialog.Panel 
                 className="
                   relative 
@@ -75,6 +81,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
                   sm:p-6
                 "
               >
+                {/* Nút đóng modal */}
                 <div 
                   className="
                     absolute 
@@ -105,6 +112,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
                     <IoClose className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
+                {/* Nội dung chính của modal */}
                 {children}
               </Dialog.Panel>
             </Transition.Child>
@@ -112,7 +120,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
         </div>
       </Dialog>
     </Transition.Root>
-  )
+  );
 }
 
+// Xuất component Modal để có thể sử dụng ở những nơi khác trong ứng dụng
 export default Modal;

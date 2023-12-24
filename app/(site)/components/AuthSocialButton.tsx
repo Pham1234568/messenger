@@ -1,14 +1,17 @@
 import { IconType } from "react-icons";
 
+// Định nghĩa kiểu dữ liệu của prop cho component AuthSocialButton
 interface AuthSocialButtonProps {
-  icon: IconType
-  onClick: () => void;
+  icon: IconType; // Kiểu dữ liệu của prop icon là IconType từ thư viện react-icons
+  onClick: () => void; // Kiểu dữ liệu của prop onClick là một hàm không nhận tham số và không trả về giá trị
 }
 
+// Component AuthSocialButton là một functional component
 const AuthSocialButton: React.FC<AuthSocialButtonProps> = ({ 
-  icon: Icon,
-  onClick,
+  icon: Icon, // Destructuring prop icon và đặt tên biến là Icon
+  onClick,    // Destructuring prop onClick
 }) => {
+  // Trả về JSX để hiển thị nút đăng nhập bằng tài khoản mạng xã hội
   return ( 
     <button
       type="button"
@@ -30,9 +33,9 @@ const AuthSocialButton: React.FC<AuthSocialButtonProps> = ({
         focus:outline-offset-0
       "
     >
-      <Icon />
+      <Icon /> {/* Hiển thị biểu tượng mạng xã hội sử dụng prop icon */}
     </button>
-   );
+  );
 }
  
 export default AuthSocialButton;

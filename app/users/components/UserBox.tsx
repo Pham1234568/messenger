@@ -1,29 +1,32 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
-import {  User } from "@prisma/client";
+import { User } from "@prisma/client";
 
 import Avatar from "@/app/components/Avatar";
 import LoadingModal from "@/app/components/modals/LoadingModal";
 
+// Props cho component UserBox
 interface UserBoxProps {
-  data: User
+  data: User;
 }
 
-const UserBox: React.FC<UserBoxProps> = ({ 
-  data
-}) => {
+// Component UserBox
+const UserBox: React.FC<UserBoxProps> = ({ data }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
+  // Hàm xử lý khi người dùng được nhấp
   const handleClick = useCallback(() => {
     setIsLoading(true);
 
+    // Gửi yêu cầu tạo cuộc trò chuyện mới thông qua API
     axios.post('/api/conversations', { userId: data.id })
-    .then((data) => {
-      router.push(`/conversations/${data.data.id}`);
-    })
-    .finally(() => setIsLoading(false));
+      .then((response) => {
+        // Chuyển hướng đến trang cuộc trò chuyện mới
+        router.push(`/conversations/${response.data.id}`);
+      })
+      .finally(() => setIsLoading(false));
   }, [data, router]);
 
   return (
@@ -61,6 +64,6 @@ const UserBox: React.FC<UserBoxProps> = ({
       </div>
     </>
   );
-}
- 
+};
+
 export default UserBox;

@@ -1,19 +1,20 @@
+// 'use client'; là một directive của Prisma, chỉ định rằng file này sẽ được sử dụng trong phạm vi client của Prisma.
 'use client';
 
-
+// Import Prisma User model và UserBox component.
 import { User } from "@prisma/client";
-
 import UserBox from "./UserBox";
 
+// Props cho component UserList, nhận một mảng người dùng.
 interface UserListProps {
   items: User[];
 }
 
-const UserList: React.FC<UserListProps> = ({ 
-  items, 
-}) => {
+// Component UserList, hiển thị danh sách người dùng trong thanh bên (sidebar).
+const UserList: React.FC<UserListProps> = ({ items }) => {
   return ( 
     <aside 
+      // CSS classes cho thanh bên, được thiết lập cho các kích thước màn hình khác nhau.
       className="
         fixed 
         inset-y-0 
@@ -30,6 +31,7 @@ const UserList: React.FC<UserListProps> = ({
     >
       <div className="px-5">
         <div className="flex-col">
+          {/* Tiêu đề của thanh bên */}
           <div 
             className="
               text-2xl 
@@ -41,6 +43,7 @@ const UserList: React.FC<UserListProps> = ({
             People
           </div>
         </div>
+        {/* Duyệt qua mỗi người dùng và render UserBox cho từng người dùng */}
         {items.map((item) => (
           <UserBox
             key={item.id}
@@ -52,4 +55,5 @@ const UserList: React.FC<UserListProps> = ({
   );
 }
  
+// Xuất component UserList để có thể sử dụng ở các phần khác của ứng dụng React.
 export default UserList;
